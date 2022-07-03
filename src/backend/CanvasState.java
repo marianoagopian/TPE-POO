@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CanvasState extends ArrayList<Figure>{
-    
+
 }

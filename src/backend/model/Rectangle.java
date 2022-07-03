@@ -1,10 +1,13 @@
 package backend.model;
 
-public class Rectangle implements Figure {
+import javafx.scene.paint.Color;
+
+public class Rectangle extends Figure {
 
     private final Point topLeft, bottomRight;
 
-    public Rectangle(Point topLeft, Point bottomRight) {
+    public Rectangle(Point topLeft, Point bottomRight, double border, Color borderColor, Color fillColor) {
+        super(border,borderColor,fillColor);
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }

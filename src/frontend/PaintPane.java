@@ -23,8 +23,7 @@ public class PaintPane extends BorderPane {
 	// Canvas y relacionados
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	Color lineColor = Color.BLACK;
-	Color fillColor = Color.YELLOW;
+
 
 	// Botones Barra Izquierda
 	ToggleButton selectionButton = new ToggleButton("Seleccionar");
@@ -40,8 +39,22 @@ public class PaintPane extends BorderPane {
 	// Seleccionar una figura
 	Figure selectedFigure;
 
+	// Crear el slider
+	Slider slider = new Slider(1, 50, 1);
+
+	// Seleccionar un border
+	double border=1;
+
+	// Crear un ColorPicker para relleno
+	ColorPicker insideColorPicker = new ColorPicker(Color.YELLOW);
+
+	// Crear un ColorPicker para borde
+	ColorPicker borderColorPicker = new ColorPicker(Color.BLACK);
+
 	// StatusBar
 	StatusPane statusPane;
+
+
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
@@ -60,17 +73,15 @@ public class PaintPane extends BorderPane {
 		buttonsBox.setPrefWidth(100);
 		gc.setLineWidth(1);
 		buttonsBox.getChildren().add(new Text("Border"));
-		Slider slider = new Slider(1, 50, 26);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		buttonsBox.getChildren().add(slider);
-		ColorPicker borderColorPicker = new ColorPicker();
 		borderColorPicker.setOnAction(e -> {
 			Color c = borderColorPicker.getValue();
 		});
 		buttonsBox.getChildren().add(borderColorPicker);
 		buttonsBox.getChildren().add(new Text("Relleno"));
-		ColorPicker insideColorPicker = new ColorPicker();
+
 		insideColorPicker.setOnAction(e -> {
 			Color c = insideColorPicker.getValue();
 		});
@@ -90,19 +101,19 @@ public class PaintPane extends BorderPane {
 			}
 			Figure newFigure = null;
 			if(rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint);
+				newFigure = new Rectangle(startPoint, endPoint,border,borderColorPicker.getValue(),insideColorPicker.getValue());
 			}
 			else if(circleButton.isSelected()) {
 				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, circleRadius);
+				newFigure = new Circle(startPoint, circleRadius,border,borderColorPicker.getValue(),insideColorPicker.getValue());
 			} else if(squareButton.isSelected()) {
 				double size = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Square(startPoint, size);
+				newFigure = new Square(startPoint, size,border,borderColorPicker.getValue(),insideColorPicker.getValue());
 			} else if(ellipseButton.isSelected()) {
 				Point centerPoint = new Point(Math.abs(endPoint.x + startPoint.x) / 2, (Math.abs((endPoint.y + startPoint.y)) / 2));
 				double sMayorAxis = Math.abs(endPoint.x - startPoint.x);
 				double sMinorAxis = Math.abs(endPoint.y - startPoint.y);
-				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
+				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis,border,borderColorPicker.getValue(),insideColorPicker.getValue());
 			} else {
 				return ;
 			}
@@ -194,13 +205,19 @@ public class PaintPane extends BorderPane {
 
 	void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		border=slider.getValue();
 		for(Figure figure : canvasState) {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
+				gc.setLineWidth(border);
+				figure.setBorder(border);
+				figure.setFillColor(insideColorPicker.getValue());
+				figure.setBorderColor(borderColorPicker.getValue());
 			} else {
-				gc.setStroke(lineColor);
+				gc.setLineWidth(figure.getBorder());
+				gc.setStroke(figure.getBorderColor());
 			}
-			gc.setFill(fillColor);
+			gc.setFill(figure.getFillColor());
 			if(figure instanceof Rectangle) {
 				Rectangle rectangle = (Rectangle) figure;
 				gc.fillRect(rectangle.getTopLeft().getX(), rectangle.getTopLeft().getY(),
@@ -223,6 +240,8 @@ public class PaintPane extends BorderPane {
 				gc.strokeOval(ellipse.getCenterPoint().getX() - (ellipse.getsMayorAxis() / 2), ellipse.getCenterPoint().getY() - (ellipse.getsMinorAxis() / 2), ellipse.getsMayorAxis(), ellipse.getsMinorAxis());
 				gc.fillOval(ellipse.getCenterPoint().getX() - (ellipse.getsMayorAxis() / 2), ellipse.getCenterPoint().getY() - (ellipse.getsMinorAxis() / 2), ellipse.getsMayorAxis(), ellipse.getsMinorAxis());
 			}
+			gc.setLineWidth(1);
+
 		}
 	}
 

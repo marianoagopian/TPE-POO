@@ -1,9 +1,11 @@
 package backend.model;
 
+import javafx.scene.paint.Color;
+
 public class Circle extends Ellipse {
 
-    public Circle(Point centerPoint, double radius) {
-        super(centerPoint, 2*radius, 2*radius);
+    public Circle(Point centerPoint, double radius, double border, Color borderColor, Color fillColor) {
+        super(centerPoint, 2*radius, 2*radius,border,borderColor,fillColor);
     }
 
     @Override
