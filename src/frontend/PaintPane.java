@@ -6,11 +6,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class PaintPane extends BorderPane {
 
@@ -56,6 +59,22 @@ public class PaintPane extends BorderPane {
 		buttonsBox.setStyle("-fx-background-color: #999");
 		buttonsBox.setPrefWidth(100);
 		gc.setLineWidth(1);
+		buttonsBox.getChildren().add(new Text("Border"));
+		Slider slider = new Slider(1, 50, 26);
+		slider.setShowTickMarks(true);
+		slider.setShowTickLabels(true);
+		buttonsBox.getChildren().add(slider);
+		ColorPicker borderColorPicker = new ColorPicker();
+		borderColorPicker.setOnAction(e -> {
+			Color c = borderColorPicker.getValue();
+		});
+		buttonsBox.getChildren().add(borderColorPicker);
+		buttonsBox.getChildren().add(new Text("Relleno"));
+		ColorPicker insideColorPicker = new ColorPicker();
+		insideColorPicker.setOnAction(e -> {
+			Color c = insideColorPicker.getValue();
+		});
+		buttonsBox.getChildren().add(insideColorPicker);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
