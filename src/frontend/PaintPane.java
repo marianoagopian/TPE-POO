@@ -106,7 +106,7 @@ public class PaintPane extends BorderPane {
 			} else {
 				return ;
 			}
-			canvasState.addFigure(newFigure);
+			canvasState.add(newFigure);
 			startPoint = null;
 			redrawCanvas();
 		});
@@ -115,7 +115,7 @@ public class PaintPane extends BorderPane {
 			Point eventPoint = new Point(event.getX(), event.getY());
 			boolean found = false;
 			StringBuilder label = new StringBuilder();
-			for(Figure figure : canvasState.figures()) {
+			for(Figure figure : canvasState) {
 				if(figureBelongs(figure, eventPoint)) {
 					found = true;
 					label.append(figure.toString());
@@ -133,7 +133,7 @@ public class PaintPane extends BorderPane {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
-				for (Figure figure : canvasState.figures()) {
+				for (Figure figure : canvasState) {
 					if(figureBelongs(figure, eventPoint)) {
 						found = true;
 						selectedFigure = figure;
@@ -182,7 +182,7 @@ public class PaintPane extends BorderPane {
 
 		deleteButton.setOnAction(event -> {
 			if (selectedFigure != null) {
-				canvasState.deleteFigure(selectedFigure);
+				canvasState.remove(selectedFigure);
 				selectedFigure = null;
 				redrawCanvas();
 			}
@@ -194,7 +194,7 @@ public class PaintPane extends BorderPane {
 
 	void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(Figure figure : canvasState.figures()) {
+		for(Figure figure : canvasState) {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
 			} else {
