@@ -76,16 +76,18 @@ public class PaintPane extends BorderPane {
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		buttonsBox.getChildren().add(slider);
-		borderColorPicker.setOnAction(e -> {
-			Color c = borderColorPicker.getValue();
-		});
 		buttonsBox.getChildren().add(borderColorPicker);
 		buttonsBox.getChildren().add(new Text("Relleno"));
-
-		insideColorPicker.setOnAction(e -> {
-			Color c = insideColorPicker.getValue();
-		});
 		buttonsBox.getChildren().add(insideColorPicker);
+
+		slider.setOnMouseDragged(e -> redrawCanvas());
+		slider.setCursor(Cursor.HAND);
+
+		borderColorPicker.setOnAction(e -> redrawCanvas());
+		borderColorPicker.setCursor(Cursor.HAND);
+
+		insideColorPicker.setOnAction(e -> redrawCanvas());
+		insideColorPicker.setCursor(Cursor.HAND);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
