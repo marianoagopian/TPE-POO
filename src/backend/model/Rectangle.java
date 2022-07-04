@@ -6,6 +6,8 @@ public class Rectangle extends Figure {
 
     private final Point topLeft, bottomRight;
 
+    private double sideX, sideY;
+
     public Rectangle(Point topLeft, Point bottomRight, double border, Color borderColor, Color fillColor) {
         super(border,borderColor,fillColor);
         this.topLeft = topLeft;
@@ -25,4 +27,26 @@ public class Rectangle extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
+    private void setSides(){
+        sideX=bottomRight.getX()-topLeft.getX();
+        sideY=bottomRight.getY()-topLeft.getY();
+    }
+
+    @Override
+    public void reduce() {
+        setSides();
+        bottomRight.moveX(sideX*(-0.05));
+        bottomRight.moveY(sideY*(-0.05));
+        topLeft.moveX((sideX*(0.05)));
+        topLeft.moveY((sideY*(0.05)));
+    }
+
+    @Override
+    public void enlarge() {
+        setSides();
+        bottomRight.moveX(sideX*(0.05));
+        bottomRight.moveY(sideY*(0.05));
+        topLeft.moveX((sideX*(-0.05)));
+        topLeft.moveY((sideY*(-0.05)));
+    }
 }

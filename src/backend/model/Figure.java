@@ -35,4 +35,8 @@ public abstract class Figure {
     public void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
     }
+
+    public abstract  void reduce();
+
+    public abstract void enlarge();
 }
