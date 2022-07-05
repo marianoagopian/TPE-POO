@@ -142,7 +142,7 @@ public class PaintPane extends BorderPane {
 			} else {
 				return ;
 			}
-			canvasState.add(newFigure);
+			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
 		});
@@ -218,7 +218,7 @@ public class PaintPane extends BorderPane {
 
 		deleteButton.setOnAction(event -> {
 			if (selectedFigure != null) {
-				canvasState.remove(selectedFigure);
+				canvasState.deleteFigure(selectedFigure);
 				selectedFigure = null;
 				redrawCanvas();
 			}
