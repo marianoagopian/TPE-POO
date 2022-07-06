@@ -14,11 +14,6 @@ public abstract class ChangeFigureColorOperation extends  Operation {
         pastColor = color;
     }
 
-    @Override
-    public String toString() {
-        return figure.getName();
-    }
-
     protected void setNewColor(Color color) {
         newColor = color;
     }

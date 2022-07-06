@@ -14,4 +14,9 @@ public abstract class Operation {
     public abstract void undoOperation();
 
     public abstract void redoOperation();
+
+    @Override
+    public String toString() {
+        return figure.getName();
+    }
 }

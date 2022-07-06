@@ -252,6 +252,9 @@ public class PaintPane extends BorderPane {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
 				gc.setLineWidth(border);
+				if (slider.getValue() != selectedFigure.getBorder()) {
+					canvasState.cleanRedos();
+				}
 				figure.setBorder(border);
 				if(selectedFigure.getBorderColor() != borderColorPicker.getValue()) {
 					Color aux = selectedFigure.getBorderColor();
@@ -262,8 +265,6 @@ public class PaintPane extends BorderPane {
 					Color aux = selectedFigure.getFillColor();
 					figure.setFillColor(insideColorPicker.getValue());
 					canvasState.changeFillColor(figure, aux);
-					System.out.println("aux: " + aux);
-					System.out.println("Present: " + selectedFigure.getFillColor());
 				}
 			} else {
 				gc.setLineWidth(figure.getBorder());
@@ -293,8 +294,11 @@ public class PaintPane extends BorderPane {
 				gc.fillOval(ellipse.getCenterPoint().getX() - (ellipse.getsMayorAxis() / 2), ellipse.getCenterPoint().getY() - (ellipse.getsMinorAxis() / 2), ellipse.getsMayorAxis(), ellipse.getsMinorAxis());
 			}
 			gc.setLineWidth(1);
-
 		}
+		historyPane.updateRedoLabel(canvasState.redoLastOperationTitle());
+		historyPane.updateUndoLabel(canvasState.undoLastOperationTitle());
+		historyPane.updateRedoMovements(canvasState.redoAvailable());
+		historyPane.updateUndoMovements(canvasState.undoAvailable());
 	}
 
 	boolean figureBelongs(Figure figure, Point eventPoint) {

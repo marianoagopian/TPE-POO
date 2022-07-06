@@ -12,7 +12,6 @@ public class BorderColorOperation extends ChangeFigureColorOperation {
         setNewColor(figure.getBorderColor());
     }
 
-
     @Override
     public void undoOperation() {
         figure.setBorderColor(pastColor);

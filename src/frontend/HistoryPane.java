@@ -6,13 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 public class HistoryPane extends BorderPane {
     private final Label undoLabel;
     private final Label redoLabel;
-
-    private int undoMovementsCount;
-    private int redoMovementsCount;
+    private final Label movementsUndoLabel;
+    private final Label movementsRedoLabel;
 
     Button redoButton = new Button("Rehacer");
     Button undoButton = new Button("Deshacer");
@@ -27,15 +27,21 @@ public class HistoryPane extends BorderPane {
         buttons.setAlignment(Pos.CENTER);
 
         undoLabel = new Label();
+        undoLabel.setMinWidth(300);
+        undoLabel.setAlignment(Pos.CENTER_RIGHT);
+        movementsUndoLabel = new Label("" + 0);
         redoLabel = new Label();
+        redoLabel.setMinWidth(300);
+        movementsRedoLabel = new Label("" + 0);
+
         redoButton.setMinWidth(90);
         undoButton.setMinWidth(90);
 
         buttons.getChildren().add(undoLabel);
-        buttons.getChildren().add(new Label("" + undoMovementsCount));
+        buttons.getChildren().add(movementsUndoLabel);
         buttons.getChildren().add(undoButton);
         buttons.getChildren().add(redoButton);
-        buttons.getChildren().add(new Label("" + redoMovementsCount));
+        buttons.getChildren().add(movementsRedoLabel);
         buttons.getChildren().add(redoLabel);
 
         setCenter(buttons);
@@ -46,7 +52,7 @@ public class HistoryPane extends BorderPane {
     }
 
     public void updateRedoMovements(int amount) {
-        redoMovementsCount = amount;
+        movementsRedoLabel.setText(String.valueOf(amount));
     }
 
     public void updateUndoLabel(String text) {
@@ -54,7 +60,7 @@ public class HistoryPane extends BorderPane {
     }
 
     public void updateUndoMovements(int amount) {
-        undoMovementsCount = amount;
+        movementsUndoLabel.setText(String.valueOf(amount));
     }
 
 }
