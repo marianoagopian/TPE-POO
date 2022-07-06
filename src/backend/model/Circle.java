@@ -17,4 +17,8 @@ public class Circle extends Ellipse {
         return getsMayorAxis()/2;
     }
 
+    public String getName() {
+        return "Circle";
+    }
+
 }

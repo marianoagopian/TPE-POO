@@ -36,7 +36,9 @@ public abstract class Figure {
         this.fillColor = fillColor;
     }
 
-    public abstract  void reduce();
+    public abstract void reduce();
 
     public abstract void enlarge();
+
+    public abstract String getName();
 }

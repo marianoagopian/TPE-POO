@@ -46,7 +46,7 @@ public class HistoryPane extends BorderPane {
     }
 
     public void updateRedoMovements(int amount) {
-        undoMovementsCount += amount;
+        redoMovementsCount = amount;
     }
 
     public void updateUndoLabel(String text) {
@@ -54,6 +54,7 @@ public class HistoryPane extends BorderPane {
     }
 
     public void updateUndoMovements(int amount) {
-        redoMovementsCount += amount;
+        undoMovementsCount = amount;
     }
+
 }

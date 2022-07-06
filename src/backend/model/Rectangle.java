@@ -49,4 +49,8 @@ public class Rectangle extends Figure {
         topLeft.moveX((sideX*(-0.05)));
         topLeft.moveY((sideY*(-0.05)));
     }
+
+    public String getName() {
+        return "Rectángulo";
+    }
 }

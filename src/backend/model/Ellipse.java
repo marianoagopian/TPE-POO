@@ -42,4 +42,8 @@ public class Ellipse extends Figure {
         sMayorAxis*=1.1;
         sMinorAxis*=1.1;
     }
+
+    public String getName() {
+        return "Elipse";
+    }
 }

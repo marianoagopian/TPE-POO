@@ -14,4 +14,7 @@ public class Square extends Rectangle {
         return String.format("Cuadrado [ %s , %s ]", super.getTopLeft(), super.getBottomRight());
     }
 
+    public String getName() {
+        return "Cuadrado";
+    }
 }

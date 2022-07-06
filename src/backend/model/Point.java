@@ -30,4 +30,8 @@ public class Point {
         return String.format("{%.2f , %.2f}", x, y);
     }
 
+
+    public String getName() {
+        return "Circle";
+    }
 }
