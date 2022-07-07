@@ -4,7 +4,7 @@ import backend.model.Figure;
 
 import java.util.List;
 
-public class EraseOperation extends SomethingOperation {
+public class EraseOperation extends ListNeededOperations {
     public EraseOperation(Figure figure, List<Figure> list) {
         super(figure, list);
     }

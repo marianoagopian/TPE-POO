@@ -5,8 +5,14 @@ import javafx.scene.paint.Color;
 public class Square extends Rectangle {
 
 
-    public Square(Point topLeft, double size, double border, Color borderColor, Color fillColor) {
-        super(topLeft, new Point(topLeft.getX() + size, topLeft.getY() + size), border, borderColor, fillColor);
+    public Square(Point topLeft, Point bottomRight, double border, Color borderColor, Color fillColor) {
+        super(topLeft, bottomRight, border, borderColor, fillColor);
+    }
+
+    @Override
+    protected void setSides(){
+        sideX = bottomRight.getX() - topLeft.getX();
+        sideY = bottomRight.getX() - topLeft.getX();
     }
 
     @Override

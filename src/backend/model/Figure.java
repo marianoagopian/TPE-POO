@@ -8,11 +8,16 @@ public abstract class Figure implements Movable, Drawable {
     private double border;
     private Color borderColor, fillColor;
 
-    public Figure(double border, Color borderColor, Color fillColor){
+    public Figure(Point startPoint, Point endPoint, double border, Color borderColor, Color fillColor){
+        if(endPoint.getX() <= startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+            throw new IllegalArgumentException("Aprende a dibujar bobi");
+        }
         setBorder(border);
         setBorderColor(borderColor);
         setFillColor(fillColor);
     }
+
+
 
     public double getBorder() {
         return border;

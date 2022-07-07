@@ -2,6 +2,7 @@ package frontend;
 
 import backend.CanvasState;
 import backend.model.*;
+import frontend.Creators.*;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -55,6 +56,9 @@ public class PaintPane extends BorderPane {
 	// HistoryPane
 	HistoryPane historyPane;
 
+	//Creator actual
+	Creator currentCreator;
+
 
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane, HistoryPane historyPane) {
@@ -88,6 +92,14 @@ public class PaintPane extends BorderPane {
 		}
 		buttonsBox.getChildren().addAll(buttons);
 
+		deleteButton.setOnMouseClicked(e -> currentCreator=null);
+		selectionButton.setOnMouseClicked(e ->currentCreator=null);
+		rectangleButton.setOnMouseClicked(e ->currentCreator=new RectangleCreator());
+		squareButton.setOnMouseClicked(e ->currentCreator=new SquareCreator());
+		circleButton.setOnMouseClicked(e ->currentCreator=new CircleCreator());
+		ellipseButton.setOnMouseClicked(e ->currentCreator=new EllipseCreator());
+
+
 		enlargeButton.setOnAction(e -> {
 			if(selectedFigure!=null) {
 				selectedFigure.enlarge();
@@ -96,6 +108,7 @@ public class PaintPane extends BorderPane {
 			}
 			else statusPane.updateStatus("Una figura debe estar seleccionada para agrandar");
 		});
+
 
 		reduceButton.setOnAction(e -> {
 			if(selectedFigure!=null) {
@@ -122,33 +135,21 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
-			if(startPoint == null) {
+			if(startPoint == null || currentCreator==null) {
 				return ;
 			}
-			if(endPoint.getX() <= startPoint.getX() || endPoint.getY() <= startPoint.getY()) {
-				return ;
+
+			try {
+				Figure newFigure = currentCreator.createInstance(startPoint,endPoint,border,borderColorPicker.getValue(),insideColorPicker.getValue());
+				canvasState.addFigure(newFigure);
+				startPoint=null;
+				redrawCanvas();
 			}
-			Figure newFigure = null;
-			if(rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint,border,borderColorPicker.getValue(),insideColorPicker.getValue());
+			catch(Exception e){
+				statusPane.updateStatus(e.getMessage());
 			}
-			else if(circleButton.isSelected()) {
-				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, circleRadius,border,borderColorPicker.getValue(),insideColorPicker.getValue());
-			} else if(squareButton.isSelected()) {
-				double size = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Square(startPoint, size,border,borderColorPicker.getValue(),insideColorPicker.getValue());
-			} else if(ellipseButton.isSelected()) {
-				Point centerPoint = new Point(Math.abs(endPoint.getX() + startPoint.getX()) / 2, (Math.abs((endPoint.getY() + startPoint.getY())) / 2));
-				double sMayorAxis = Math.abs(endPoint.getX() - startPoint.getX());
-				double sMinorAxis = Math.abs(endPoint.getY() - startPoint.getY());
-				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis,border,borderColorPicker.getValue(),insideColorPicker.getValue());
-			} else {
-				return ;
-			}
-			canvasState.addFigure(newFigure);
 			startPoint = null;
-			redrawCanvas();
+
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -233,7 +234,7 @@ public class PaintPane extends BorderPane {
 		setRight(canvas);
 	}
 
-	void redrawCanvas() {
+	public void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		border = slider.getValue();
 		for(Figure figure : canvasState) {

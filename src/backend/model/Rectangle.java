@@ -5,12 +5,12 @@ import javafx.scene.paint.Color;
 
 public class Rectangle extends Figure {
 
-    private final Point topLeft, bottomRight;
+    protected final Point topLeft, bottomRight;
 
-    private double sideX, sideY;
+    protected double sideX, sideY;
 
     public Rectangle(Point topLeft, Point bottomRight, double border, Color borderColor, Color fillColor) {
-        super(border, borderColor, fillColor);
+        super(topLeft,bottomRight,border, borderColor, fillColor);
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
@@ -28,7 +28,7 @@ public class Rectangle extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
-    private void setSides(){
+    protected void setSides(){
         sideX = bottomRight.getX() - topLeft.getX();
         sideY = bottomRight.getY() - topLeft.getY();
     }

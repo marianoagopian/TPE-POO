@@ -8,11 +8,20 @@ public class Ellipse extends Figure {
     protected final Point centerPoint;
     protected double sMayorAxis, sMinorAxis;
 
-    public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis, double border, Color borderColor, Color fillColor) {
-        super(border, borderColor, fillColor);
+    public Ellipse(Point centerPoint, Point endPoint, double border, Color borderColor, Color fillColor) {
+        super(centerPoint,endPoint,border, borderColor, fillColor);
         this.centerPoint = centerPoint;
-        this.sMayorAxis = sMayorAxis;
-        this.sMinorAxis = sMinorAxis;
+
+        setMayorAxis(endPoint);
+        setMinorAxis(endPoint);
+    }
+
+    private void setMinorAxis(Point endPoint) {
+        sMinorAxis = endPoint.getY() - centerPoint.getY();
+    }
+
+    private void setMayorAxis(Point endPoint) {
+        sMayorAxis=endPoint.getX() - centerPoint.getX();
     }
 
     @Override
