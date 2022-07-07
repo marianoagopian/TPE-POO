@@ -1,4 +1,4 @@
-package backend;
+package backend.Properties;
 
 import javafx.scene.canvas.GraphicsContext;
 

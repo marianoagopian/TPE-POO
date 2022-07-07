@@ -1,7 +1,7 @@
 package backend.model;
 
-import backend.Movable;
-import backend.Drawable;
+import backend.Properties.Movable;
+import backend.Properties.Drawable;
 import javafx.scene.paint.Color;
 
 public abstract class Figure implements Movable, Drawable {
@@ -47,4 +47,6 @@ public abstract class Figure implements Movable, Drawable {
     public abstract void undoReduce();
 
     public abstract void undoEnlarge();
+
+    public abstract boolean figureBelongs(Point point);
 }

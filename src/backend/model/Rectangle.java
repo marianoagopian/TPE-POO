@@ -77,4 +77,10 @@ public class Rectangle extends Figure {
         gc.fillRect(topLeft.getX(), topLeft.getY(), sideX ,sideY);
         gc.strokeRect(topLeft.getX(), topLeft.getY(), sideX,sideY);
     }
+
+    @Override
+    public boolean figureBelongs(Point point) {
+        return point.getX() > topLeft.getX() && point.getX() < bottomRight.getX() &&
+                point.getY() > topLeft.getY() && point.getY() < bottomRight.getY();
+    }
 }
