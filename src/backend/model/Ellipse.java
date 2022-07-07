@@ -1,5 +1,6 @@
 package backend.model;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Ellipse extends Figure {
@@ -50,5 +51,23 @@ public class Ellipse extends Figure {
     @Override
     public void move(double deltaX, double deltaY) {
         centerPoint.move(deltaX, deltaY);
+    }
+
+    @Override
+    public void draw (GraphicsContext gc)  {
+        gc.fillOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
+        gc.strokeOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
+    }
+
+    @Override
+    public void undoReduce() {
+        sMayorAxis/=0.9;
+        sMinorAxis/=0.9;
+    }
+
+    @Override
+    public void undoEnlarge(){
+        sMayorAxis/=1.1;
+        sMinorAxis/=1.1;
     }
 }
