@@ -1,8 +1,9 @@
 package backend.model;
 
+import backend.Properties.Drawable;
 import javafx.scene.paint.Color;
 
-public abstract class Figure {
+public abstract class Figure implements Drawable {
     private double border;
     private Color borderColor, fillColor;
 

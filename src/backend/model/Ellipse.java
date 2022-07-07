@@ -1,5 +1,6 @@
 package backend.model;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Ellipse extends Figure {
@@ -45,6 +46,13 @@ public class Ellipse extends Figure {
 
     public String getName() {
         return "Elipse";
+    }
+
+
+    @Override
+    public void draw(GraphicsContext gc) {
+        gc.fillOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
+        gc.strokeOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
     }
 
     @Override
