@@ -8,7 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -21,7 +20,6 @@ public class PaintPane extends BorderPane {
 	// Canvas y relacionados
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-
 
 	// Botones Barra Izquierda
 	ToggleButton selectionButton = new ToggleButton("Seleccionar");
@@ -43,7 +41,7 @@ public class PaintPane extends BorderPane {
 	Slider slider = new Slider(1, 50, 1);
 
 	// Seleccionar un border
-	double border=1;
+	double border = 1;
 
 	// Crear un ColorPicker para relleno
 	ColorPicker insideColorPicker = new ColorPicker(Color.YELLOW);
@@ -127,7 +125,7 @@ public class PaintPane extends BorderPane {
 			if(startPoint == null) {
 				return ;
 			}
-			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+			if(endPoint.getX() <= startPoint.getX() || endPoint.getY() <= startPoint.getY()) {
 				return ;
 			}
 			Figure newFigure = null;
@@ -194,31 +192,13 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseDragged(event -> {
 			if(selectionButton.isSelected()) {
-				Point eventPoint = new Point(event.getX(), event.getY());
-				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
-				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
-				if(selectedFigure instanceof Rectangle) {
-					Rectangle rectangle = (Rectangle) selectedFigure;
-					rectangle.getTopLeft().moveX(diffX);
-					rectangle.getBottomRight().moveX(diffX);
-					rectangle.getTopLeft().moveY(diffY);
-					rectangle.getBottomRight().moveY(diffY);
-				} else if(selectedFigure instanceof Circle) {
-					Circle circle = (Circle) selectedFigure;
-					circle.getCenterPoint().moveX(diffX);
-					circle.getCenterPoint().moveY(diffY);
-				} else if(selectedFigure instanceof Square) {
-					Square square = (Square) selectedFigure;
-					square.getTopLeft().moveX(diffX);
-					square.getBottomRight().moveX(diffX);
-					square.getTopLeft().moveY(diffY);
-					square.getBottomRight().moveY(diffY);
-				} else if(selectedFigure instanceof Ellipse) {
-					Ellipse ellipse = (Ellipse) selectedFigure;
-					ellipse.getCenterPoint().moveX(diffX);
-					ellipse.getCenterPoint().moveY(diffY);
+				if(selectedFigure != null) {
+					Point eventPoint = new Point(event.getX(), event.getY());
+					double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
+					double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
+					selectedFigure.move(diffX, diffY);
+					redrawCanvas();
 				}
-				redrawCanvas();
 			}
 		});
 
@@ -231,13 +211,21 @@ public class PaintPane extends BorderPane {
 		});
 
 		historyPane.redoButton.setOnMouseClicked(e -> {
-			canvasState.redoOperation();
-			redrawCanvas();
+			if(!(canvasState.redoAvailable() > 0)) {
+				statusPane.updateStatus("No quedan operaciones por rehacer");
+			} else {
+				canvasState.redoOperation();
+				redrawCanvas();
+			};
 		});
 
 		historyPane.undoButton.setOnMouseClicked(e -> {
-			canvasState.undoOperation();
-			redrawCanvas();
+			if(!(canvasState.undoAvailable() > 0)) {
+				statusPane.updateStatus("No quedan hay operaciones por deshacer");
+			} else {
+				canvasState.undoOperation();
+				redrawCanvas();
+			};
 		});
 
 

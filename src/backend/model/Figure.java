@@ -1,12 +1,13 @@
 package backend.model;
 
+import backend.Movable;
 import javafx.scene.paint.Color;
 
-public abstract class Figure {
+public abstract class Figure implements Movable {
     private double border;
     private Color borderColor, fillColor;
 
-    public Figure(double border,Color borderColor, Color fillColor){
+    public Figure(double border, Color borderColor, Color fillColor){
         setBorder(border);
         setBorderColor(borderColor);
         setFillColor(fillColor);
@@ -41,4 +42,6 @@ public abstract class Figure {
     public abstract void enlarge();
 
     public abstract String getName();
+
+    public abstract void move(double deltaX, double deltaY);
 }

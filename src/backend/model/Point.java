@@ -1,6 +1,8 @@
 package backend.model;
 
-public class Point {
+import backend.Movable;
+
+public class Point implements Movable {
 
     private double x, y;
 
@@ -17,12 +19,10 @@ public class Point {
         return y;
     }
 
-    public void moveX(double aux){
-        x+=aux;
-    }
-
-    public void moveY(double aux){
-        y+=aux;
+    @Override
+    public void move(double deltaX, double deltaY) {
+        x += deltaX;
+        y += deltaY;
     }
 
     @Override
@@ -31,7 +31,4 @@ public class Point {
     }
 
 
-    public String getName() {
-        return "Circle";
-    }
 }

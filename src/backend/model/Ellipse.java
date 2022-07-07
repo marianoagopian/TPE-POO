@@ -8,7 +8,7 @@ public class Ellipse extends Figure {
     protected double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis, double border, Color borderColor, Color fillColor) {
-        super(border,borderColor,fillColor);
+        super(border, borderColor, fillColor);
         this.centerPoint = centerPoint;
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis = sMinorAxis;
@@ -33,17 +33,22 @@ public class Ellipse extends Figure {
 
     @Override
     public void reduce() {
-        sMayorAxis*=0.9;
-        sMinorAxis*=0.9;
+        sMayorAxis *= 0.9;
+        sMinorAxis *= 0.9;
     }
 
     @Override
     public void enlarge() {
-        sMayorAxis*=1.1;
-        sMinorAxis*=1.1;
+        sMayorAxis *= 1.1;
+        sMinorAxis *= 1.1;
     }
 
     public String getName() {
         return "Elipse";
+    }
+
+    @Override
+    public void move(double deltaX, double deltaY) {
+        centerPoint.move(deltaX, deltaY);
     }
 }
