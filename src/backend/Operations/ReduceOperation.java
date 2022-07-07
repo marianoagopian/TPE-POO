@@ -10,7 +10,7 @@ public class ReduceOperation extends Operation {
     }
 
     public void undoOperation() {
-        figure.enlarge();
+        figure.undoReduce();
     }
 
     public void redoOperation() {

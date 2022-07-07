@@ -41,6 +41,8 @@ public class Rectangle extends Figure {
         topLeft.moveY((sideY*(0.05)));
     }
 
+
+
     @Override
     public void enlarge() {
         setSides();
@@ -52,5 +54,23 @@ public class Rectangle extends Figure {
 
     public String getName() {
         return "Rectángulo";
+    }
+
+    @Override
+    public void undoReduce() {
+        setSides();
+        bottomRight.moveX(sideX*(1.0/18));
+        bottomRight.moveY(sideY*(1.0/18));
+        topLeft.moveX(sideX*(-1.0/18));
+        topLeft.moveY(sideY*(-1.0/18));
+    }
+
+    @Override
+    public void undoEnlarge(){
+        setSides();
+        bottomRight.moveX(sideX*(-1.0/22));
+        bottomRight.moveY(sideY*(-1.0/22));
+        topLeft.moveX(sideX*(1.0/22));
+        topLeft.moveY(sideY*(1.0/22));
     }
 }

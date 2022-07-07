@@ -46,4 +46,16 @@ public class Ellipse extends Figure {
     public String getName() {
         return "Elipse";
     }
+
+    @Override
+    public void undoReduce() {
+        sMayorAxis/=0.9;
+        sMinorAxis/=0.9;
+    }
+
+    @Override
+    public void undoEnlarge(){
+        sMayorAxis/=1.1;
+        sMinorAxis/=1.1;
+    }
 }

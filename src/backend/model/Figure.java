@@ -41,4 +41,9 @@ public abstract class Figure {
     public abstract void enlarge();
 
     public abstract String getName();
+
+    public abstract void undoReduce();
+
+    public abstract void undoEnlarge();
+
 }
