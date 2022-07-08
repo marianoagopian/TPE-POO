@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.util.Optional;
+
 public class PaintPane extends BorderPane {
 
 	// BackEnd
@@ -94,10 +96,22 @@ public class PaintPane extends BorderPane {
 
 		deleteButton.setOnMouseClicked(e -> currentCreator=null);
 		selectionButton.setOnMouseClicked(e ->currentCreator=null);
-		rectangleButton.setOnMouseClicked(e ->currentCreator=new RectangleCreator());
-		squareButton.setOnMouseClicked(e ->currentCreator=new SquareCreator());
-		circleButton.setOnMouseClicked(e ->currentCreator=new CircleCreator());
-		ellipseButton.setOnMouseClicked(e ->currentCreator=new EllipseCreator());
+		rectangleButton.setOnMouseClicked(e ->{
+			currentCreator=new RectangleCreator();
+			selectedFigure=null;
+		});
+		squareButton.setOnMouseClicked(e ->{
+			currentCreator=new SquareCreator();
+			selectedFigure=null;
+		});
+		circleButton.setOnMouseClicked(e ->{
+			currentCreator=new CircleCreator();
+			selectedFigure=null;
+		});
+		ellipseButton.setOnMouseClicked(e ->{
+			currentCreator=new EllipseCreator();
+			selectedFigure=null;
+		});
 
 
 		enlargeButton.setOnAction(e -> {
@@ -138,18 +152,15 @@ public class PaintPane extends BorderPane {
 			if(startPoint == null || currentCreator==null) {
 				return ;
 			}
-
 			try {
 				Figure newFigure = currentCreator.createInstance(startPoint,endPoint,border,borderColorPicker.getValue(),insideColorPicker.getValue());
 				canvasState.addFigure(newFigure);
-				startPoint=null;
 				redrawCanvas();
 			}
 			catch(Exception e){
 				statusPane.updateStatus(e.getMessage());
 			}
-			startPoint = null;
-
+			startPoint=null;
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -204,6 +215,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		deleteButton.setOnAction(event -> {
+			currentCreator=null;
 			if (selectedFigure != null) {
 				canvasState.deleteFigure(selectedFigure);
 				selectedFigure = null;
@@ -212,21 +224,32 @@ public class PaintPane extends BorderPane {
 		});
 
 		historyPane.redoButton.setOnMouseClicked(e -> {
-			if(!(canvasState.redoAvailable() > 0)) {
-				statusPane.updateStatus("No quedan operaciones por rehacer");
-			} else {
+			try{
 				canvasState.redoOperation();
 				redrawCanvas();
-			};
+			} catch(Exception redoException){
+				Alert alert = new Alert(Alert.AlertType.WARNING);
+				alert.setHeaderText("No quedan operaciones para rehacer");
+				alert.setContentText("Nono, pero a vos no te da la cabeza eh, ves el cartel que te tiro y ahora intentas lo mismo del otro lado." + "\n"+ "Pelotudo");
+				alert.showAndWait()
+						.filter(response->response==ButtonType.OK)
+						.ifPresent(response-> alert.close());
+			}
 		});
 
 		historyPane.undoButton.setOnMouseClicked(e -> {
-			if(!(canvasState.undoAvailable() > 0)) {
-				statusPane.updateStatus("No quedan hay operaciones por deshacer");
-			} else {
+			try{
+				selectedFigure=null;
 				canvasState.undoOperation();
 				redrawCanvas();
-			};
+			} catch(Exception undoException){
+				Alert alert = new Alert(Alert.AlertType.WARNING);
+				alert.setHeaderText("No quedan operaciones por deshacer");
+				alert.setContentText("A ver campeoncito, si ves el 0 al lado de deshacer, significa que no tenes nada mas para deshacer me comprendes? o no te da? Pedazo de re pelotudo");
+				alert.showAndWait()
+						.filter(response->response==ButtonType.OK)
+						.ifPresent(response-> alert.close());
+			}
 		});
 
 

@@ -66,24 +66,18 @@ public class CanvasState implements Iterable<Figure> {
     }
 
     public void redoOperation() {
-        if(!redoStack.isEmpty()) {
-            Operation aux = redoStack.pop();
-            aux.redoOperation();
-            undoStack.push(aux);
-        }
+        Operation aux = redoStack.pop();
+        aux.redoOperation();
+        undoStack.push(aux);
     }
 
     public void undoOperation(){
-        if(!undoStack.isEmpty()) {
-            Operation aux = undoStack.pop();
-            aux.undoOperation();
-            redoStack.push(aux);
-        }
+        Operation aux = undoStack.pop();
+        aux.undoOperation();
+        redoStack.push(aux);
     }
 
     public void cleanRedos() {
-        if(!redoStack.isEmpty()) {
-            redoStack.clear();
-        }
+        redoStack.clear();
     }
 }

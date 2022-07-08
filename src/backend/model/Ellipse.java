@@ -5,13 +5,12 @@ import javafx.scene.paint.Color;
 
 public class Ellipse extends Figure {
 
-    protected final Point centerPoint;
+    protected Point centerPoint;
     protected double sMayorAxis, sMinorAxis;
 
-    public Ellipse(Point centerPoint, Point endPoint, double border, Color borderColor, Color fillColor) {
-        super(centerPoint,endPoint,border, borderColor, fillColor);
-        this.centerPoint = centerPoint;
-
+    public Ellipse(Point startPoint, Point endPoint, double border, Color borderColor, Color fillColor) {
+        super(startPoint,endPoint,border, borderColor, fillColor);
+        this.centerPoint = new Point((endPoint.getX() + startPoint.getX()) / 2, ((endPoint.getY() + startPoint.getY())) / 2);
         setMayorAxis(endPoint);
         setMinorAxis(endPoint);
     }
@@ -64,8 +63,8 @@ public class Ellipse extends Figure {
 
     @Override
     public void draw (GraphicsContext gc)  {
-        gc.fillOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
-        gc.strokeOval(centerPoint.getX()-sMayorAxis/2, centerPoint.getY()-sMinorAxis/2, sMayorAxis ,sMinorAxis);
+        gc.fillOval(centerPoint.getX()-sMayorAxis, centerPoint.getY()-sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
+        gc.strokeOval(centerPoint.getX()-sMayorAxis, centerPoint.getY()-sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
     }
 
     @Override
