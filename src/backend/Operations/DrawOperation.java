@@ -19,6 +19,6 @@ public class DrawOperation extends ListNeededOperations {
 
     @Override
     public String toString() {
-        return String.format("Dibujar " + figure.getName());
+        return String.format("Dibujar " + super.toString());
     }
 }

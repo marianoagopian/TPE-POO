@@ -19,6 +19,6 @@ public class EraseOperation extends ListNeededOperations {
 
     @Override
     public String toString() {
-        return String.format("Borrar " + figure.getName());
+        return String.format("Borrar " + super.toString());
     }
 }

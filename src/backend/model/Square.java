@@ -10,8 +10,8 @@ public class Square extends Rectangle {
     }
 
     @Override
-    protected void setSides(){
-        double auxSide=bottomRight.getX() - topLeft.getX();
+    protected void setSides() {
+        double auxSide = bottomRight.getX() - topLeft.getX();
         sideX = auxSide;
         sideY = auxSide;
     }

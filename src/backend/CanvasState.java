@@ -71,7 +71,7 @@ public class CanvasState implements Iterable<Figure> {
         undoStack.push(aux);
     }
 
-    public void undoOperation(){
+    public void undoOperation() {
         Operation aux = undoStack.pop();
         aux.undoOperation();
         redoStack.push(aux);

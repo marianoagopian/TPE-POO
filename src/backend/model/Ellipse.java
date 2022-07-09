@@ -10,7 +10,7 @@ public class Ellipse extends Figure {
     protected double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point startPoint, Point endPoint, double border, Color borderColor, Color fillColor) {
-        super(startPoint,endPoint,border, borderColor, fillColor);
+        super(startPoint, endPoint, border, borderColor, fillColor);
         this.centerPoint = new Point((endPoint.getX() + startPoint.getX()) / 2, ((endPoint.getY() + startPoint.getY())) / 2);
         setMayorAxis(endPoint);
         setMinorAxis(endPoint);
@@ -56,20 +56,20 @@ public class Ellipse extends Figure {
 
     @Override
     public void draw (GraphicsContext gc)  {
-        gc.fillOval(centerPoint.getX()-sMayorAxis, centerPoint.getY()-sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
-        gc.strokeOval(centerPoint.getX()-sMayorAxis, centerPoint.getY()-sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
+        gc.fillOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2 * sMayorAxis ,2 * sMinorAxis);
+        gc.strokeOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2 * sMayorAxis ,2 * sMinorAxis);
     }
 
     @Override
     public void undoReduce() {
-        sMayorAxis/=0.9;
-        sMinorAxis/=0.9;
+        sMayorAxis /= 0.9;
+        sMinorAxis /= 0.9;
     }
 
     @Override
-    public void undoEnlarge(){
-        sMayorAxis/=1.1;
-        sMinorAxis/=1.1;
+    public void undoEnlarge() {
+        sMayorAxis /= 1.1;
+        sMinorAxis /= 1.1;
     }
 
     @Override

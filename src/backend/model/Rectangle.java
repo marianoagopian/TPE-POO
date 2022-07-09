@@ -28,7 +28,7 @@ public class Rectangle extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
-    protected void setSides(){
+    protected void setSides() {
         sideX = bottomRight.getX() - topLeft.getX();
         sideY = bottomRight.getY() - topLeft.getY();
     }
@@ -60,22 +60,22 @@ public class Rectangle extends Figure {
     @Override
     public void undoReduce() {
         setSides();
-        bottomRight.move(sideX*(1.0/18), sideY*(1.0/18));
-        topLeft.move(sideX*(-1.0/18), sideY*(-1.0/18));
+        bottomRight.move(sideX * (1.0/18), sideY * (1.0/18));
+        topLeft.move(sideX * (-1.0/18), sideY * (-1.0/18));
     }
 
     @Override
-    public void undoEnlarge(){
+    public void undoEnlarge() {
         setSides();
-        bottomRight.move(sideX*(-1.0/22), sideY*(-1.0/22));
-        topLeft.move(sideX*(1.0/22), sideY*(1.0/22));
+        bottomRight.move(sideX * (-1.0/22), sideY * (-1.0/22));
+        topLeft.move(sideX * (1.0/22), sideY * (1.0/22));
     }
 
     @Override
     public void draw(GraphicsContext gc) {
         setSides();
-        gc.fillRect(topLeft.getX(), topLeft.getY(), sideX ,sideY);
-        gc.strokeRect(topLeft.getX(), topLeft.getY(), sideX,sideY);
+        gc.fillRect(topLeft.getX(), topLeft.getY(), sideX, sideY);
+        gc.strokeRect(topLeft.getX(), topLeft.getY(), sideX, sideY);
     }
 
     @Override
