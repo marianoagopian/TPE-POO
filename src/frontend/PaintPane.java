@@ -239,7 +239,7 @@ public class PaintPane extends BorderPane {
 
 		historyPane.undoButtonSetOnAction(e -> {
 			try {
-				selectedFigure=null;
+				selectedFigure = null;
 				canvasState.undoOperation();
 				redrawCanvas();
 			} catch (Exception undoException) {
