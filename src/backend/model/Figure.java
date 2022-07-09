@@ -9,8 +9,8 @@ public abstract class Figure implements Movable, Drawable {
     private Color borderColor, fillColor;
 
     public Figure(Point startPoint, Point endPoint, double border, Color borderColor, Color fillColor){
-        if (endPoint.getX() <= startPoint.getX() || endPoint.getY() < startPoint.getY()) {
-            throw new IllegalArgumentException("La figura debe ser dibujada de izquiera a derecha y de arriba a abajo");
+        if (endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+            throw new IllegalArgumentException("La figura debe ser dibujada de izquierda a derecha y de arriba a abajo");
         }
         setBorder(border);
         setBorderColor(borderColor);
