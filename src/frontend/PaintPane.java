@@ -96,33 +96,42 @@ public class PaintPane extends BorderPane {
 
 		selectionButton.setOnMouseClicked(e -> {
 			currentCreator = null;
-			if(selectedFigure!=null)
+			if (selectedFigure != null) {
 				redrawFigure(selectedFigure);
-
+				selectedFigure = null;
+			}
 		});
 
 		rectangleButton.setOnMouseClicked(e -> {
 			currentCreator = new RectangleCreator();
-			if(selectedFigure!=null)
+			if (selectedFigure != null) {
 				redrawFigure(selectedFigure);
+				selectedFigure = null;
+			}
 		});
 
 		squareButton.setOnMouseClicked(e -> {
 			currentCreator = new SquareCreator();
-			if(selectedFigure!=null)
+			if (selectedFigure != null) {
 				redrawFigure(selectedFigure);
+				selectedFigure = null;
+			}
 		});
 
 		circleButton.setOnMouseClicked(e -> {
 			currentCreator = new CircleCreator();
-			if(selectedFigure!=null)
+			if(selectedFigure != null) {
 				redrawFigure(selectedFigure);
+				selectedFigure = null;
+			}
 		});
 
 		ellipseButton.setOnMouseClicked(e -> {
 			currentCreator = new EllipseCreator();
-			if(selectedFigure!=null)
+			if (selectedFigure != null) {
 				redrawFigure(selectedFigure);
+				selectedFigure = null;
+			}
 		});
 
 		enlargeButton.setOnAction(e -> {
@@ -130,8 +139,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure.enlarge();
 				canvasState.enlarge(selectedFigure);
 				redrawCanvas();
+			} else {
+				statusPane.updateStatus("Una figura debe estar seleccionada para agrandar");
 			}
-			else statusPane.updateStatus("Una figura debe estar seleccionada para agrandar");
 		});
 
 
@@ -140,8 +150,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure.reduce();
 				canvasState.reduce(selectedFigure);
 				redrawCanvas();
+			} else {
+				statusPane.updateStatus("Una figura debe estar seleccionada para achicar");
 			}
-			else statusPane.updateStatus("Una figura debe estar seleccionada para achicar");
 		});
 
 
@@ -169,7 +180,7 @@ public class PaintPane extends BorderPane {
 			catch (Exception e) {
 				statusPane.updateStatus(e.getMessage());
 			}
-			startPoint=null;
+			startPoint = null;
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -269,26 +280,10 @@ public class PaintPane extends BorderPane {
 		border = slider.getValue();
 		for (Figure figure : canvasState) {
 			if (figure == selectedFigure) {
-				gc.setStroke(Color.RED);
-				gc.setLineWidth(border);
-				figure.setBorder(border);
-				if (selectedFigure.getBorderColor() != borderColorPicker.getValue()) {
-					Color aux = selectedFigure.getBorderColor();
-					figure.setBorderColor(borderColorPicker.getValue());
-					canvasState.changeBorderColor(figure, aux);
-				}
-				if (selectedFigure.getFillColor() != insideColorPicker.getValue()) {
-					Color aux = selectedFigure.getFillColor();
-					figure.setFillColor(insideColorPicker.getValue());
-					canvasState.changeFillColor(figure, aux);
-				}
+				redrawSelectedFigure();
 			} else {
-				gc.setLineWidth(figure.getBorder());
-				gc.setStroke(figure.getBorderColor());
+				redrawFigure(figure);
 			}
-			gc.setFill(figure.getFillColor());
-			figure.draw(gc);
-			gc.setLineWidth(1);
 		}
 		historyPane.updateRedoLabel(canvasState.redoLastOperationTitle());
 		historyPane.updateUndoLabel(canvasState.undoLastOperationTitle());
@@ -298,7 +293,26 @@ public class PaintPane extends BorderPane {
 
 	private void redrawFigure(Figure figure){
 		gc.setStroke(figure.getBorderColor());
+		gc.setLineWidth(figure.getBorder());
+		gc.setFill(figure.getFillColor());
 		figure.draw(gc);
-		selectedFigure = null;
+	}
+
+	private void redrawSelectedFigure() {
+		gc.setStroke(Color.RED);
+		gc.setLineWidth(border);
+		selectedFigure.setBorder(border);
+		if (selectedFigure.getBorderColor() != borderColorPicker.getValue()) {
+			Color aux = selectedFigure.getBorderColor();
+			selectedFigure.setBorderColor(borderColorPicker.getValue());
+			canvasState.changeBorderColor(selectedFigure, aux);
+		}
+		if (selectedFigure.getFillColor() != insideColorPicker.getValue()) {
+			Color aux = selectedFigure.getFillColor();
+			selectedFigure.setFillColor(insideColorPicker.getValue());
+			canvasState.changeFillColor(selectedFigure, aux);
+		}
+		gc.setFill(selectedFigure.getFillColor());
+		selectedFigure.draw(gc);
 	}
 }
