@@ -5,22 +5,14 @@ import javafx.scene.paint.Color;
 
 public class Rectangle extends Figure {
 
-    protected final Point topLeft, bottomRight;
+    private final Point topLeft, bottomRight;
 
-    protected double sideX, sideY;
+    private double sideX, sideY;
 
     public Rectangle(Point topLeft, Point bottomRight, double border, Color borderColor, Color fillColor) {
         super(topLeft,bottomRight,border, borderColor, fillColor);
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
-    }
-
-    public Point getTopLeft() {
-        return topLeft;
-    }
-
-    public Point getBottomRight() {
-        return bottomRight;
     }
 
     @Override
@@ -29,8 +21,32 @@ public class Rectangle extends Figure {
     }
 
     protected void setSides() {
-        sideX = bottomRight.getX() - topLeft.getX();
-        sideY = bottomRight.getY() - topLeft.getY();
+        setSideX(bottomRight.getX() - topLeft.getX());
+        setSideY(bottomRight.getY() - topLeft.getY());
+    }
+
+    protected Point getTopLeft() {
+        return topLeft;
+    }
+
+    protected Point getBottomRight() {
+        return bottomRight;
+    }
+
+    protected double getSideX() {
+        return sideX;
+    }
+
+    protected void setSideX(double sideX) {
+        this.sideX = sideX;
+    }
+
+    protected double getSideY() {
+        return sideY;
+    }
+
+    protected void setSideY(double sideY) {
+        this.sideY = sideY;
     }
 
     @Override

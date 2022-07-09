@@ -97,40 +97,40 @@ public class PaintPane extends BorderPane {
 		selectionButton.setOnMouseClicked(e -> {
 			currentCreator = null;
 			if (selectedFigure != null) {
-				redrawFigure(selectedFigure);
 				selectedFigure = null;
+				redrawCanvas();
 			}
 		});
 
 		rectangleButton.setOnMouseClicked(e -> {
 			currentCreator = new RectangleCreator();
 			if (selectedFigure != null) {
-				redrawFigure(selectedFigure);
 				selectedFigure = null;
+				redrawCanvas();
 			}
 		});
 
 		squareButton.setOnMouseClicked(e -> {
 			currentCreator = new SquareCreator();
 			if (selectedFigure != null) {
-				redrawFigure(selectedFigure);
 				selectedFigure = null;
+				redrawCanvas();
 			}
 		});
 
 		circleButton.setOnMouseClicked(e -> {
 			currentCreator = new CircleCreator();
 			if(selectedFigure != null) {
-				redrawFigure(selectedFigure);
 				selectedFigure = null;
+				redrawCanvas();
 			}
 		});
 
 		ellipseButton.setOnMouseClicked(e -> {
 			currentCreator = new EllipseCreator();
 			if (selectedFigure != null) {
-				redrawFigure(selectedFigure);
 				selectedFigure = null;
+				redrawCanvas();
 			}
 		});
 
@@ -271,6 +271,7 @@ public class PaintPane extends BorderPane {
 						.ifPresent(response -> alert.close());
 			}
 		});
+
 		setLeft(buttonsBox);
 		setRight(canvas);
 	}
@@ -280,39 +281,30 @@ public class PaintPane extends BorderPane {
 		border = slider.getValue();
 		for (Figure figure : canvasState) {
 			if (figure == selectedFigure) {
-				redrawSelectedFigure();
+				gc.setStroke(Color.RED);
+				gc.setLineWidth(border);
+				figure.setBorder(border);
+				if (selectedFigure.getBorderColor() != borderColorPicker.getValue()) {
+					Color aux = selectedFigure.getBorderColor();
+					figure.setBorderColor(borderColorPicker.getValue());
+					canvasState.changeBorderColor(figure, aux);
+				}
+				if (selectedFigure.getFillColor() != insideColorPicker.getValue()) {
+					Color aux = selectedFigure.getFillColor();
+					figure.setFillColor(insideColorPicker.getValue());
+					canvasState.changeFillColor(figure, aux);
+				}
 			} else {
-				redrawFigure(figure);
+				gc.setLineWidth(figure.getBorder());
+				gc.setStroke(figure.getBorderColor());
 			}
+			gc.setFill(figure.getFillColor());
+			figure.draw(gc);
+			gc.setLineWidth(1);
 		}
 		historyPane.updateRedoLabel(canvasState.redoLastOperationTitle());
 		historyPane.updateUndoLabel(canvasState.undoLastOperationTitle());
 		historyPane.updateRedoMovements(canvasState.redoAvailable());
 		historyPane.updateUndoMovements(canvasState.undoAvailable());
-	}
-
-	private void redrawFigure(Figure figure){
-		gc.setStroke(figure.getBorderColor());
-		gc.setLineWidth(figure.getBorder());
-		gc.setFill(figure.getFillColor());
-		figure.draw(gc);
-	}
-
-	private void redrawSelectedFigure() {
-		gc.setStroke(Color.RED);
-		gc.setLineWidth(border);
-		selectedFigure.setBorder(border);
-		if (selectedFigure.getBorderColor() != borderColorPicker.getValue()) {
-			Color aux = selectedFigure.getBorderColor();
-			selectedFigure.setBorderColor(borderColorPicker.getValue());
-			canvasState.changeBorderColor(selectedFigure, aux);
-		}
-		if (selectedFigure.getFillColor() != insideColorPicker.getValue()) {
-			Color aux = selectedFigure.getFillColor();
-			selectedFigure.setFillColor(insideColorPicker.getValue());
-			canvasState.changeFillColor(selectedFigure, aux);
-		}
-		gc.setFill(selectedFigure.getFillColor());
-		selectedFigure.draw(gc);
 	}
 }

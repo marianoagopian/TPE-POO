@@ -11,16 +11,16 @@ public class FillColorOperation extends ChangeFigureColorOperation {
 
     @Override
     public void undoOperation() {
-        figure.setFillColor(pastColor);
+        getFigure().setFillColor(getPastColor());
     }
 
     @Override
     public void redoOperation() {
-        figure.setFillColor(newColor);
+        getFigure().setFillColor(getNewColor());
     }
 
     @Override
     public String toString() {
-        return String.format("Cambiar color de relleno de " + super.toString());
+        return String.format("Cambiar color de relleno de %s", super.toString());
     }
 }

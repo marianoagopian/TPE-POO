@@ -10,15 +10,15 @@ public class DrawOperation extends ListNeededOperations {
     }
 
     public void undoOperation() {
-        list.remove(figure);
+        getList().remove(getFigure());
     }
 
     public void redoOperation() {
-        list.add(figure);
+        getList().add(getFigure());
     }
 
     @Override
     public String toString() {
-        return String.format("Dibujar " + super.toString());
+        return String.format("Dibujar %s", super.toString());
     }
 }

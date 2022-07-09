@@ -2,10 +2,8 @@ package backend.Operations;
 
 import backend.model.Figure;
 
-import java.util.List;
-
 public abstract class Operation {
-    protected Figure figure;
+    private final Figure figure;
 
     public Operation(Figure figure) {
         this.figure = figure;
@@ -14,6 +12,10 @@ public abstract class Operation {
     public abstract void undoOperation();
 
     public abstract void redoOperation();
+
+    public Figure getFigure() {
+        return figure;
+    }
 
     @Override
     public String toString() {

@@ -11,17 +11,17 @@ public class Circle extends Ellipse {
 
     @Override
     public String toString() {
-        return String.format("Círculo [Centro: %s, Radio: %.2f]", centerPoint, getRadius());
+        return String.format("Círculo [Centro: %s, Radio: %.2f]", getCenterPoint(), getRadius());
     }
 
 
     private void setRadius(Point endPoint) {
-       sMayorAxis = endPoint.getX() - centerPoint.getX();
-       sMinorAxis = sMayorAxis;
+       setsMayorAxis(endPoint.getX() - getCenterPoint().getX());
+       setsMinorAxis(getsMayorAxis());
     }
 
     private double getRadius() {
-        return sMayorAxis/2;
+        return getsMayorAxis()/2;
     }
 
     public String getName() {

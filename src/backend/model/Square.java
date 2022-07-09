@@ -11,11 +11,10 @@ public class Square extends Rectangle {
 
     @Override
     protected void setSides() {
-        double auxSide = bottomRight.getX() - topLeft.getX();
-        sideX = auxSide;
-        sideY = auxSide;
+        double auxSide = getBottomRight().getX() - getTopLeft().getX();
+        setSideX(auxSide);
+        setSideY(auxSide);
     }
-
 
     @Override
     public String toString() {
@@ -24,8 +23,8 @@ public class Square extends Rectangle {
 
     @Override
     public boolean figureBelongs(Point point) {
-        return point.getX() > topLeft.getX() && point.getX() < bottomRight.getX() &&
-                point.getY() > topLeft.getY() && point.getY() < (topLeft.getY() + sideY);
+        return point.getX() > getTopLeft().getX() && point.getX() < getBottomRight().getX() &&
+                point.getY() > getTopLeft().getY() && point.getY() < (getTopLeft().getY() + getSideY());
     }
 
     public String getName() {

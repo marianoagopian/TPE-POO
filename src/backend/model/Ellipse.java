@@ -6,22 +6,38 @@ import javafx.scene.paint.Color;
 
 public class Ellipse extends Figure {
 
-    protected Point centerPoint;
-    protected double sMayorAxis, sMinorAxis;
+    private Point centerPoint;
+    private double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point startPoint, Point endPoint, double border, Color borderColor, Color fillColor) {
         super(startPoint, endPoint, border, borderColor, fillColor);
         this.centerPoint = new Point((endPoint.getX() + startPoint.getX()) / 2, ((endPoint.getY() + startPoint.getY())) / 2);
-        setMayorAxis(endPoint);
-        setMinorAxis(endPoint);
+        createsMayorAxis(endPoint);
+        createsMinorAxis(endPoint);
     }
 
-    private void setMinorAxis(Point endPoint) {
-        sMinorAxis = endPoint.getY() - centerPoint.getY();
+    protected void setsMayorAxis(double sMayorAxis) {
+        this.sMayorAxis = sMayorAxis;
     }
 
-    private void setMayorAxis(Point endPoint) {
-        sMayorAxis=endPoint.getX() - centerPoint.getX();
+    protected void setsMinorAxis(double sMinorAxis) {
+        this.sMinorAxis = sMinorAxis;
+    }
+
+    protected Point getCenterPoint() {
+        return centerPoint;
+    }
+
+    protected double getsMayorAxis() {
+        return sMayorAxis;
+    }
+
+    private void createsMinorAxis(Point endPoint) {
+        setsMinorAxis(endPoint.getY() - centerPoint.getY());
+    }
+
+    private void createsMayorAxis(Point endPoint) {
+        setsMayorAxis( endPoint.getX() - centerPoint.getX());
     }
 
     @Override

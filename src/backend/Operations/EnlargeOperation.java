@@ -2,7 +2,6 @@ package backend.Operations;
 
 import backend.model.Figure;
 
-import java.util.List;
 
 public class EnlargeOperation extends Operation {
     public EnlargeOperation(Figure figure) {
@@ -10,15 +9,15 @@ public class EnlargeOperation extends Operation {
     }
 
     public void undoOperation() {
-        figure.undoEnlarge();
+        getFigure().undoEnlarge();
     }
 
     public void redoOperation() {
-        figure.enlarge();
+        getFigure().enlarge();
     }
 
     @Override
     public String toString() {
-        return String.format("Agrandar " + super.toString());
+        return String.format("Agrandar %s", super.toString());
     }
 }

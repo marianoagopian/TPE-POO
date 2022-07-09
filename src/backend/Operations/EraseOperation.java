@@ -10,15 +10,15 @@ public class EraseOperation extends ListNeededOperations {
     }
 
     public void undoOperation() {
-        list.add(figure);
+        getList().add(getFigure());
     }
 
     public void redoOperation() {
-        list.remove(figure);
+        getList().remove(getFigure());
     }
 
     @Override
     public String toString() {
-        return String.format("Borrar " + super.toString());
+        return String.format("Borrar %s", super.toString());
     }
 }

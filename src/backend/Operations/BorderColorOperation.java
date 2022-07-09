@@ -3,8 +3,6 @@ package backend.Operations;
 import backend.model.Figure;
 import javafx.scene.paint.Color;
 
-import java.util.List;
-
 public class BorderColorOperation extends ChangeFigureColorOperation {
 
     public BorderColorOperation(Figure figure, Color color) {
@@ -14,16 +12,16 @@ public class BorderColorOperation extends ChangeFigureColorOperation {
 
     @Override
     public void undoOperation() {
-        figure.setBorderColor(pastColor);
+        getFigure().setBorderColor(getPastColor());
     }
 
     @Override
     public void redoOperation() {
-        figure.setBorderColor(newColor);
+        getFigure().setBorderColor(getNewColor());
     }
 
     @Override
     public String toString() {
-        return String.format("Cambiar color de borde de " + super.toString());
+        return String.format("Cambiar color de borde de %s", super.toString());
     }
 }
