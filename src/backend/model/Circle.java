@@ -20,7 +20,7 @@ public class Circle extends Ellipse {
        sMinorAxis = sMayorAxis;
     }
 
-    public double getRadius() {
+    private double getRadius() {
         return getsMayorAxis()/2;
     }
 

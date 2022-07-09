@@ -3,6 +3,7 @@ package backend.model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+
 public class Ellipse extends Figure {
 
     protected Point centerPoint;
@@ -28,16 +29,8 @@ public class Ellipse extends Figure {
         return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", centerPoint, sMayorAxis, sMinorAxis);
     }
 
-    public Point getCenterPoint() {
-        return centerPoint;
-    }
-
-    public double getsMayorAxis() {
+    protected double getsMayorAxis() {
         return sMayorAxis;
-    }
-
-    public double getsMinorAxis() {
-        return sMinorAxis;
     }
 
     @Override

@@ -18,48 +18,48 @@ import java.util.Optional;
 public class PaintPane extends BorderPane {
 
 	// BackEnd
-	CanvasState canvasState;
+	private final CanvasState canvasState;
 
 	// Canvas y relacionados
-	Canvas canvas = new Canvas(800, 600);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final Canvas canvas = new Canvas(800, 600);
+	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 
 	// Botones Barra Izquierda
-	ToggleButton selectionButton = new ToggleButton("Seleccionar");
-	ToggleButton rectangleButton = new ToggleButton("Rectángulo");
-	ToggleButton circleButton = new ToggleButton("Círculo");
-	ToggleButton squareButton = new ToggleButton("Cuadrado");
-	ToggleButton ellipseButton = new ToggleButton("Elipse");
-	ToggleButton deleteButton = new ToggleButton("Borrar");
-	Button enlargeButton = new Button("Agrandar");
-	Button reduceButton = new Button("Achicar");
+	private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
+	private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
+	private final ToggleButton circleButton = new ToggleButton("Círculo");
+	private final ToggleButton squareButton = new ToggleButton("Cuadrado");
+	private final ToggleButton ellipseButton = new ToggleButton("Elipse");
+	private final ToggleButton deleteButton = new ToggleButton("Borrar");
+	private final Button enlargeButton = new Button("Agrandar");
+	private final Button reduceButton = new Button("Achicar");
 
 	// Dibujar una figura
-	Point startPoint;
+	private Point startPoint;
 
 	// Seleccionar una figura
-	Figure selectedFigure;
+	private Figure selectedFigure;
 
 	// Crear el slider
-	Slider slider = new Slider(1, 50, 1);
+	private final Slider slider = new Slider(1, 50, 1);
 
 	// Seleccionar un border
-	double border = 1;
+	private double border = 1;
 
 	// Crear un ColorPicker para relleno
-	ColorPicker insideColorPicker = new ColorPicker(Color.YELLOW);
+	private final ColorPicker insideColorPicker = new ColorPicker(Color.YELLOW);
 
 	// Crear un ColorPicker para borde
-	ColorPicker borderColorPicker = new ColorPicker(Color.BLACK);
+	private final ColorPicker borderColorPicker = new ColorPicker(Color.BLACK);
 
 	// StatusBar
-	StatusPane statusPane;
+	private final StatusPane statusPane;
 
 	// HistoryPane
-	HistoryPane historyPane;
+	private final HistoryPane historyPane;
 
 	//Creator actual
-	Creator currentCreator;
+	private Creator currentCreator;
 
 
 
@@ -251,8 +251,6 @@ public class PaintPane extends BorderPane {
 						.ifPresent(response-> alert.close());
 			}
 		});
-
-
 		setLeft(buttonsBox);
 		setRight(canvas);
 	}

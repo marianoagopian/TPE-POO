@@ -11,9 +11,11 @@ public class Square extends Rectangle {
 
     @Override
     protected void setSides(){
-        sideX = bottomRight.getX() - topLeft.getX();
-        sideY = bottomRight.getX() - topLeft.getX();
+        double auxSide=bottomRight.getX() - topLeft.getX();
+        sideX = auxSide;
+        sideY = auxSide;
     }
+
 
     @Override
     public String toString() {
