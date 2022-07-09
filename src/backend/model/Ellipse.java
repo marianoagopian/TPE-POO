@@ -29,10 +29,6 @@ public class Ellipse extends Figure {
         return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", centerPoint, sMayorAxis, sMinorAxis);
     }
 
-    protected double getsMayorAxis() {
-        return sMayorAxis;
-    }
-
     @Override
     public void reduce() {
         sMayorAxis *= 0.9;
@@ -56,8 +52,8 @@ public class Ellipse extends Figure {
 
     @Override
     public void draw (GraphicsContext gc)  {
-        gc.fillOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2 * sMayorAxis ,2 * sMinorAxis);
-        gc.strokeOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2 * sMayorAxis ,2 * sMinorAxis);
+        gc.fillOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
+        gc.strokeOval(centerPoint.getX() - sMayorAxis, centerPoint.getY() - sMinorAxis, 2*sMayorAxis ,2*sMinorAxis);
     }
 
     @Override
@@ -75,6 +71,6 @@ public class Ellipse extends Figure {
     @Override
     public boolean figureBelongs(Point point) {
         return ((Math.pow(point.getX() - centerPoint.getX(), 2) / Math.pow(sMayorAxis, 2)) +
-                (Math.pow(point.getY() - centerPoint.getY(), 2) / Math.pow(sMinorAxis, 2))) <= 0.30;
+                (Math.pow(point.getY() - centerPoint.getY(), 2) / Math.pow(sMinorAxis, 2))) <= 0.60;
     }
 }

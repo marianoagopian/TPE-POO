@@ -94,26 +94,35 @@ public class PaintPane extends BorderPane {
 
 		deleteButton.setOnMouseClicked(e -> currentCreator = null);
 
-		selectionButton.setOnMouseClicked(e -> currentCreator = null);
+		selectionButton.setOnMouseClicked(e -> {
+			currentCreator = null;
+			if(selectedFigure!=null)
+				redrawFigure(selectedFigure);
+
+		});
 
 		rectangleButton.setOnMouseClicked(e -> {
 			currentCreator = new RectangleCreator();
-			selectedFigure = null;
+			if(selectedFigure!=null)
+				redrawFigure(selectedFigure);
 		});
 
 		squareButton.setOnMouseClicked(e -> {
-			currentCreator=new SquareCreator();
-			selectedFigure=null;
+			currentCreator = new SquareCreator();
+			if(selectedFigure!=null)
+				redrawFigure(selectedFigure);
 		});
 
 		circleButton.setOnMouseClicked(e -> {
 			currentCreator = new CircleCreator();
-			selectedFigure = null;
+			if(selectedFigure!=null)
+				redrawFigure(selectedFigure);
 		});
 
 		ellipseButton.setOnMouseClicked(e -> {
 			currentCreator = new EllipseCreator();
-			selectedFigure = null;
+			if(selectedFigure!=null)
+				redrawFigure(selectedFigure);
 		});
 
 		enlargeButton.setOnAction(e -> {
@@ -285,5 +294,11 @@ public class PaintPane extends BorderPane {
 		historyPane.updateUndoLabel(canvasState.undoLastOperationTitle());
 		historyPane.updateRedoMovements(canvasState.redoAvailable());
 		historyPane.updateUndoMovements(canvasState.undoAvailable());
+	}
+
+	private void redrawFigure(Figure figure){
+		gc.setStroke(figure.getBorderColor());
+		figure.draw(gc);
+		selectedFigure = null;
 	}
 }

@@ -21,11 +21,11 @@ public class Circle extends Ellipse {
     }
 
     private double getRadius() {
-        return getsMayorAxis()/2;
+        return sMayorAxis/2;
     }
 
     public String getName() {
-        return "Circle";
+        return "Circulo";
     }
 
 }
