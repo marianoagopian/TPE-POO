@@ -13,7 +13,7 @@ public abstract class Operation {
 
     public abstract void redoOperation();
 
-    public Figure getFigure() {
+    protected Figure getFigure() {
         return figure;
     }
 
