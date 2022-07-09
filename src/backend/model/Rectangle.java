@@ -33,10 +33,6 @@ public class Rectangle extends Figure {
         return bottomRight;
     }
 
-    protected double getSideX() {
-        return sideX;
-    }
-
     protected void setSideX(double sideX) {
         this.sideX = sideX;
     }

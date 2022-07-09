@@ -276,7 +276,7 @@ public class PaintPane extends BorderPane {
 		setRight(canvas);
 	}
 
-	public void redrawCanvas() {
+	private void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		border = slider.getValue();
 		for (Figure figure : canvasState) {
