@@ -71,6 +71,6 @@ public class Ellipse extends Figure {
     @Override
     public boolean figureBelongs(Point point) {
         return ((Math.pow(point.getX() - centerPoint.getX(), 2) / Math.pow(sMayorAxis, 2)) +
-                (Math.pow(point.getY() - centerPoint.getY(), 2) / Math.pow(sMinorAxis, 2))) <= 0.60;
+                (Math.pow(point.getY() - centerPoint.getY(), 2) / Math.pow(sMinorAxis, 2))) <= 1;
     }
 }
